@@ -1,0 +1,61 @@
+{
+  "name": "dsh-whale-girl-plugin",
+  "version": "0.15.4",
+  "description": "DeepSeek 鲸鱼娘看板娘 for DeepSeek Harness Web GUI —— 对话界面右下角常驻透明立绘看板娘：idle.webm 待机动画、9 张表情立绘随 AI 工作状态切换、说话口型、气泡台词、拖拽/右键菜单/设置面板、视线跟随、鼠标转速头晕、连点生气、闲置打盹、跟随 dsh 主题。纯注入、零侵入、免构建。",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "cordis",
+    "mascot",
+    "kanban-girl",
+    "whale-girl",
+    "desktop-pet"
+  ],
+  "engines": { "node": ">=20" },
+  "type": "module",
+  "main": "index.js",
+  "icon": "./icon.png",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.png"
+  },
+  "files": [
+    "index.js",
+    "engine.mjs",
+    "character.mjs",
+    "mascot.config.mjs",
+    "backend.mjs",
+    "bridge.mjs",
+    "cordis.patch.yml",
+    "assets/",
+    "locale/",
+    "icon.png",
+    "docs/",
+    "tools/",
+    "README.md",
+    "LICENSE"
+  ],
+  "dsh": { "bundle": { "patch": "./cordis.patch.yml" } },
+  "scripts": {
+    "test": "node tools/check-inject.mjs && node tools/smoke-test.mjs",
+    "prepack": "node tools/check-inject.mjs && node tools/smoke-test.mjs",
+    "smoke": "node tools/smoke-test.mjs",
+    "build:assets": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/build-assets.ps1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guyusky/dsh-whale-girl-plugin.git"
+  },
+  "homepage": "https://github.com/guyusky/dsh-whale-girl-plugin#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-host-webserver": ">=0.1.0-rc.6"
+  },
+  "license": "MIT"
+}

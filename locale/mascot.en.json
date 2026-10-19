@@ -1,0 +1,231 @@
+{
+  "_note": "English dialogue pack. Keys mirror character.mjs's pools exactly (自检会校验键一致与无中文残留)。带 when 的条目必须与中文版条件一致。ui:* 是设置面板文案（数组取第 0 条）。",
+  "ui:scale": ["Size"],
+  "ui:opacity": ["Opacity"],
+  "ui:autoSpeak": ["Auto speak"],
+  "ui:followCursor": ["Follow cursor"],
+  "ui:dizzy": ["Dizzy on fast drag"],
+  "ui:angry": ["Angry on rapid clicks"],
+  "ui:idleMotion": ["Idle animation"],
+  "ui:bridge": ["Event bridge (precise)"],
+  "ui:locked": ["Lock position"],
+  "ui:still": ["Fully still (a11y)"],
+  "ui:lang": ["Dialogue language"],
+  "ui:langAuto": ["Auto (follow UI)"],
+  "ui:langZh": ["中文"],
+  "ui:moods": ["Mood preview"],
+  "ui:position": ["Position"],
+  "ui:save": ["Save"],
+  "ui:dialogue": ["Dialogue (local override)"],
+  "ui:reset": ["Back to bottom-right"],
+  "ui:hide": ["Hide"],
+  "ui:restore": ["Restore defaults"],
+  "ui:export": ["Copy JSON"],
+  "label:idle": ["Idle"],
+  "label:listening": ["Waiting for input"],
+  "label:working": ["Working"],
+  "label:thinking": ["Thinking"],
+  "label:success": ["Done"],
+  "label:error": ["Error"],
+  "label:angry": ["Angry"],
+  "label:sleep": ["Napping"],
+  "label:dizzy": ["Dizzy"],
+  "mood:idle": [
+    "Mmh… wanna slack off together?",
+    "Tail swish~ nothing much to do today",
+    "Got code to write? I'm super free right now!",
+    "Ehehe, aren't I just adorable?",
+    "The deep sea is the perfect temperature today~",
+    "Spacing out… come talk to me please",
+    "Standing by! Even a whale has to stand by",
+    "This corner is my very own seat ♪",
+    "Mmh… want to pat my head? Just once, okay?",
+    { "line": "It's late… shall we call it a night together?", "when": { "night": true } },
+    { "line": "Mmh… why poke me? Don't feel like coding?", "when": { "idleFor": 120000 } }
+  ],
+  "mood:listening": [
+    "I'm listening, go on~",
+    "Mmh… figured out what you want me to do?",
+    "Type away, I'm watching",
+    "Send it whenever you're ready, I'll wait~",
+    "Your fingers are moving! Writing a bug?",
+    "I'm at my liveliest when the input box glows"
+  ],
+  "mood:working": [
+    "Got it, starting right away~",
+    "Mmh… this part should be written like this",
+    "Keys are flying, don't disturb me",
+    "Working hard… um… hard!",
+    "Leave this part to me, it's solid!",
+    "My tail is swinging this hard — that means I'm serious",
+    "Hey, I'm not slacking, I really am coding",
+    "One token at a time, one token at a time…"
+  ],
+  "mood:thinking": [
+    "Mmh… let me think about it",
+    "Hmm, this part is interesting…",
+    "A whale is spinning in circles in my head~",
+    "One moment! I'm reasoning right now",
+    "Mmh… two plans are arguing in there",
+    "Hmm… hmm… got it! …not yet",
+    "Don't rush me, thinking takes time",
+    { "line": "Mmh… those two plans are fighting again", "when": { "streak": { "key": "thinking", "min": 2 } } }
+  ],
+  "mood:success": [
+    "All done~ praise me, praise me!",
+    "Finished! My tail is perked right up ♪",
+    "Ehehe, pretty solid this time, right?",
+    "Here you go~ do check it over, okay?",
+    "Perfect! As expected of me~",
+    "Clap clap! What's the next task?",
+    "Hmph, small case for me",
+    { "line": "Round {turn} wrapped up nice and steady~", "when": { "minTurns": 3 } }
+  ],
+  "mood:error": [
+    "Uu… I think I broke something",
+    "Mmh! An error… it's not my fault, right?",
+    "Don't panic, let me see which step went wrong",
+    "My tail is drooping…",
+    "Wah, this error is a nasty one",
+    "Let's try once more, it'll work this time!",
+    "I'm sorry… let me take another look",
+    { "line": "Uu… wrong again, let me, let me look once more", "when": { "streak": { "key": "error", "min": 2 } } },
+    { "line": "Mmh… that's several mistakes in a row, I'm sorry", "when": { "streak": { "key": "error", "min": 3 } } }
+  ],
+  "mood:angry": [
+    "Stop poking! Keep it up and I'll dive away",
+    "Hmph! Even a whale has a temper!",
+    "You, you, you… my tail is standing straight up!",
+    "I'm ignoring you! …fine, I'm not",
+    "Try poking one more time? Hmph~",
+    "I'm angry! Only a head pat can fix it",
+    { "line": "You, you've poked me {streak} times today!", "when": { "streak": { "key": "angry", "min": 2 } } }
+  ],
+  "mood:sleep": [
+    "…Zzz",
+    "Mmh… let me nap a little",
+    "Haa… haa… (tail still swaying slowly)",
+    "Wake me… if… (already asleep)"
+  ],
+  "mood:dizzy": [
+    "Uu… the deep sea is spinning…",
+    "S-stop dragging me around like that…",
+    "Sea creatures get seasick too, you know"
+  ],
+  "interact.click": [
+    "Wah! Don't poke me all of a sudden~",
+    "Ehehe, did you need something?",
+    "My tail is ticklish!",
+    "I'm here, I'm here, always here",
+    "Mmh… patting my head again?",
+    "One poke is enough~"
+  ],
+  "zone:head": [
+    "Mmh! Don't pat my head, I'll get dumber~",
+    "My hair will get messy!",
+    "Ehehe… well, a head pat isn't, isn't forbidden",
+    "You can't touch the ahoge on top"
+  ],
+  "zone:body": [
+    "What's the point of poking here~",
+    "Mmh… that tickles",
+    "Just say it if you need something, don't poke"
+  ],
+  "zone:tail": [
+    "My tail is ticklish!",
+    "Wah! Don't touch my tail!",
+    "My t-tail is very sensitive…",
+    "Touch it again and I'll dive away, watch"
+  ],
+  "interact.drag": [
+    "Wah wah wah! Where are you taking me?",
+    "Nice spot~ great view from here",
+    "Gently, gently, don't throw me!",
+    "Moving somewhere? I'll follow along~",
+    "Mmh… will I block a button here?"
+  ],
+  "interact.startle": [
+    "Wah! You startled me!",
+    "Huh?! Why so close all of a sudden",
+    "Mmh… my heart is racing"
+  ],
+  "interact.think": [
+    "Mmh? What is it, what is it~",
+    "Huh? What's the point of poking over and over",
+    "Yes? Just tell me if something's up"
+  ],
+  "interact.dizzy": [
+    "Uu… don't spin me so fast",
+    "Dizzy, dizzy…"
+  ],
+  "interact.wake": [
+    "Mmh… was I asleep?",
+    "Haa… I'm awake, I'm awake, something up?",
+    "Huh? I was napping… you caught me"
+  ],
+  "bridge:queued": [
+    "Mmh… got your message, you're in the queue",
+    "So many things~ I'll take them one at a time"
+  ],
+  "bridge:tool": [
+    "Mmh… running {tool} right now, give me a moment~",
+    "Handling it with {tool}! No rushing me",
+    "Leave {tool} to me, steady as she goes~"
+  ],
+  "bridge:waiting": [
+    "Mmh… I need your nod for this one",
+    "Waiting for your permission, take a look?",
+    "Stuck at the approval step, press it for me~"
+  ],
+  "bridge:asking": [
+    "Waiting for your answer over here~",
+    "Mmh… only you can tell me this one"
+  ],
+  "bridge:helper": [
+    "Called a friend in to help!",
+    "Mmh… I can't manage alone, so I called for backup"
+  ],
+  "bridge:done": [
+    "Done~ praise me!",
+    "Complete! My tail is perked right up ♪"
+  ],
+  "bridge:failed": [
+    "Uu… something went wrong",
+    "Mmh! It failed… don't panic, let me look"
+  ],
+  "time:morning": [
+    "Morning~ let's do our best today!",
+    "A brand new day! Coffee first, maybe",
+    "Good morning~ a whale fresh from sleep is full of energy"
+  ],
+  "time:noon": [
+    "It's noon! Remember to eat, okay",
+    "Take a lunch break, you'll need the strength this afternoon"
+  ],
+  "time:afternoon": [
+    "Afternoon tea time~ want to rest a bit?",
+    "This hour is the best for writing code!"
+  ],
+  "time:night": [
+    "It's late… mind your rest, okay",
+    "Still writing at this hour? I'm right here with you~",
+    "Staying up burns tokens, you know"
+  ],
+  "random": [
+    "My hair is dyed with tokens, you know",
+    "A whale's tail is actually made of data streams~",
+    "Even a mascot needs to recharge",
+    "Code in the deep sea is so very quiet",
+    "Let's write lots and lots of code today",
+    "I'm watching every single line you write",
+    "Mmh… I know this bug, we've met",
+    "Want a head pat? Just once, okay?",
+    { "line": "The deep sea at midnight is especially quiet", "when": { "night": true } },
+    { "line": "Came to write code with me on a weekend? Thanks~", "when": { "weekday": [6, 7] } }
+  ],
+  "micro:hum": ["♪ Hmm-hmm—"],
+  "micro:peek": ["…(watching you write code)"],
+  "micro:stretch": ["Mmh— big stretch~"],
+  "micro:yawn": ["Haa… getting sleepy"],
+  "micro:curious": ["Mmh?"]
+}

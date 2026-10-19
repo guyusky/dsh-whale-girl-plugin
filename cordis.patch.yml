@@ -1,0 +1,6 @@
+# dsh-whale-girl-plugin bundle layer · DeepSeek 鲸鱼娘看板娘
+# 纯运行期插件 (无静态配置), 仅声明插件 id 与包名。
+# 后续层级若以相同 id 覆盖, 会整体替换本行, 请按需重述全部键。
+- insert:
+    - id: dsh-whale-girl-plugin
+      name: dsh-whale-girl-plugin
