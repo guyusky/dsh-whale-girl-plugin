@@ -1,6 +1,6 @@
 {
   "name": "dsh-whale-girl-plugin",
-  "version": "0.15.4",
+  "version": "0.15.5",
   "description": "DeepSeek 鲸鱼娘看板娘 for DeepSeek Harness Web GUI —— 对话界面右下角常驻透明立绘看板娘：idle.webm 待机动画、9 张表情立绘随 AI 工作状态切换、说话口型、气泡台词、拖拽/右键菜单/设置面板、视线跟随、鼠标转速头晕、连点生气、闲置打盹、跟随 dsh 主题。纯注入、零侵入、免构建。",
   "keywords": [
     "deepseek-harness",
@@ -20,6 +20,7 @@
     ".": "./index.js",
     "./package.json": "./package.json",
     "./locale/*.json": "./locale/*.json",
+    "./i18n/*.json": "./i18n/*.json",
     "./icon": "./icon.png"
   },
   "files": [
@@ -32,6 +33,7 @@
     "cordis.patch.yml",
     "assets/",
     "locale/",
+    "i18n/",
     "icon.png",
     "docs/",
     "tools/",

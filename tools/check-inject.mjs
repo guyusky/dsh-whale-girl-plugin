@@ -777,7 +777,7 @@ for (const f of ['index.js', 'engine.mjs', 'character.mjs', 'mascot.config.mjs',
 {
   const scriptSrc = /<script>([\s\S]*?)<\/script>/.exec(html)[1]
   const packs = character.locales || {}
-  check(Object.keys(packs).includes('en'), '英文语言包已加载（locale/mascot.en.json）')
+  check(Object.keys(packs).includes('en'), '英文语言包已加载（i18n/mascot.en.json）')
   const en = packs.en || {}
 
   // 中文侧的键空间（与引擎里 poolFor 的 key 一一对应）
@@ -864,6 +864,39 @@ for (const f of ['index.js', 'engine.mjs', 'character.mjs', 'mascot.config.mjs',
   check(html.includes('i18n:'), 'motion() 报告当前语言与可用语言包')
   check(html.includes('poolFor(key, dialogueDefaults(key))'), '面板里看到的就是当前语言（不会面板中文嘴上英文）')
   check(html.includes('跟随界面'), '语言默认是"自动"而不是写死中文')
+}
+
+// ---- 9e) 插件元信息契约：locale/ 里的文件名必须是"语言 id" ----
+// 宿主读插件标题/描述时会扫 `locale/*.json` 整个目录，并把文件名当成语言 id 校验
+// （packages/boot/app-boot/src/package-meta.ts 的 dictionariesOf + LANGUAGE_ID）。
+// 曾经因为把角色台词包命名成 locale/mascot.en.json（带点号）→ 插件管理面板直接报
+// "must use a language id as its filename"。这里把规则照抄一份，防止再踩。
+{
+  const LANGUAGE_ID = /^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$/u   // 与宿主源码一字不差
+  const localeDir = join(here, '..', 'locale')
+  const localeFiles = readdirSync(localeDir).filter((f) => f.endsWith('.json'))
+  check(localeFiles.length >= 1, `locale/ 里有插件显示文案（${localeFiles.join(', ')}）`)
+  const seen = new Set()
+  for (const file of localeFiles) {
+    const id = file.slice(0, -5)
+    check(LANGUAGE_ID.test(id), `locale/${file} 的文件名是合法语言 id（${id}）`)
+    check(!seen.has(id.toLowerCase()), `locale/${id} 没有重复的语言 id（大小写也算重复）`)
+    seen.add(id.toLowerCase())
+  }
+  check(localeFiles.includes('en.json'), 'locale/en.json 在位（宿主以它为锚点去找同目录其它语言）')
+  const enMeta = JSON.parse(readFileSync(join(localeDir, 'en.json'), 'utf8')).meta || {}
+  check(typeof enMeta.title === 'string' && enMeta.title.trim() !== '', 'locale/en.json 带 meta.title（插件管理器显示用）')
+  check(typeof enMeta.description === 'string' && enMeta.description.trim() !== '', 'locale/en.json 带 meta.description')
+  const zhMeta = JSON.parse(readFileSync(join(localeDir, 'zh.json'), 'utf8')).meta || {}
+  check(typeof zhMeta.title === 'string' && zhMeta.title.trim() !== '' && typeof zhMeta.description === 'string', 'locale/zh.json 带 meta.title/description')
+
+  // 角色台词包必须放在 locale/ 之外（否则文件名里的点号会踩上面那条规则）
+  check(!existsSync(join(localeDir, 'mascot.en.json')), '角色台词包不在 locale/ 里（mascot.en.json 会踩语言 id 校验）')
+  check(existsSync(join(here, '..', 'i18n', 'mascot.en.json')), '角色台词包在 i18n/mascot.en.json')
+  check(readFileSync(join(here, '..', 'character.mjs'), 'utf8').includes('./i18n/mascot.'), 'character.mjs 从 i18n/ 加载台词包')
+  check(pkg.files.includes('i18n/'), 'package.json 的 files 包含 i18n/（否则发布后英文包丢失）')
+  check(typeof pkg.exports?.['./i18n/*.json'] === 'string', 'package.json 导出 ./i18n/*.json（按需可被宿主解析）')
+  check(typeof pkg.exports?.['./locale/*.json'] === 'string', 'package.json 仍导出 ./locale/*.json（宿主靠它找显示文案）')
 }
 
 // ---- 10) 热更新机制：带 ?v= 重新 import 必须重新求值（否则改了配置也不生效）----

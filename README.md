@@ -1,4 +1,4 @@
-﻿# dsh-whale-girl-plugin · DeepSeek 鲸鱼娘看板娘
+# dsh-whale-girl-plugin · DeepSeek 鲸鱼娘看板娘
 
 给 DeepSeek Harness Web GUI 注入一只常驻的 **DeepSeek 鲸鱼娘**看板娘：透明立绘、待机动画、随 AI 状态切表情、会说话、可拖动，全部可配置。**纯注入、零侵入、免构建**。
 
@@ -59,7 +59,8 @@ curl http://127.0.0.1:3080/__mascot/status
 curl -N http://127.0.0.1:3080/__mascot/events
 ```
 
-想换语言：设置面板 →「台词语言」→ English（默认"自动"跟随界面语言）；想自己改台词：设置面板 →「台词（本地覆写）」；想加一门语言：往 `locale/` 放一个 `mascot.<lang>.json` 即可（键照抄中文池子）。
+想换语言：设置面板 →「台词语言」→ English（默认"自动"跟随界面语言）；想自己改台词：设置面板 →「台词（本地覆写）」；想加一门语言：往 **`i18n/`** 放一个 `mascot.<lang>.json` 即可（键照抄中文池子）。
+> 为什么不是 `locale/`：那个目录是**插件管理器显示文案**专用的，宿主会把 `locale/*.json` 的文件名当语言 id 校验（正则 `^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$`）；`mascot.en.json` 里的点号不合法，插件面板会报 **「must use a language id as its filename」**（v0.15.5 修）。
 
 浏览器控制台调试钩子：
 
@@ -128,7 +129,8 @@ whale-girl-plugin/
 ├─ assets/             运行期素材：9 张透明 PNG + 3 帧扒墙偷看 + 1 张闭眼帧 + idle.webm（共约 2.7MB）
 ├─ docs/preview.png    素材总览；docs/eye-life-preview.png / eye-life-realsize.png 是闭眼帧的目视验收图
 ├─ icon.png            插件图标（显示清单要求，≤256KiB）
-├─ locale/{zh,en}.json 插件管理器里的标题与描述
+├─ locale/{zh,en}.json 插件管理器里的标题与描述（**只放语言 id 命名的文件**，见下）
+├─ i18n/mascot.<lang>.json 角色台词语言包（跟 locale/ 分开，否则会踩宿主的文件名校验）
 ├─ tools/
 │   ├─ build-assets.ps1  素材流水线（从 source/ 原始素材重建 assets/）
 │   ├─ import-actions.ps1 动作序列帧导入（多帧共用一个锚点，避免播放抖动）

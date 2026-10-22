@@ -263,11 +263,17 @@ export const bridge = {
   }
 }
 
-// 台词语言包：locale/mascot.<lang>.json（键与上面的池子一一对应；缺键自动回落中文）。
+// 台词语言包：i18n/mascot.<lang>.json（键与上面的池子一一对应；缺键自动回落中文）。
 // 单独放文件是为了"加一门语言 = 加一个 JSON"，不用改代码；英文包同时充当 i18n 样例。
+//
+// ⚠️ 为什么在 i18n/ 而不是 locale/：locale/ 是**插件管理器显示文案**的专用目录，
+// 宿主（packages/boot/app-boot/src/package-meta.ts 的 dictionariesOf）会把 `locale/*.json`
+// 的文件名当成语言 id（正则 `^[A-Za-z]{2,8}(?:-[A-Za-z0-9]{1,8})*$`），
+// `mascot.en.json` 里的点号不合法 → 插件管理面板直接报
+// "must use a language id as its filename"（v0.15.5 修）。角色台词包放这里就不会被扫到。
 function loadLocale(lang) {
   try {
-    const url = new URL(`./locale/mascot.${lang}.json`, import.meta.url)
+    const url = new URL(`./i18n/mascot.${lang}.json`, import.meta.url)
     const data = JSON.parse(readFileSync(url, 'utf8'))
     for (const key of Object.keys(data)) if (key.startsWith('_')) delete data[key]  // 下划线字段是给维护者的注释
     return data
